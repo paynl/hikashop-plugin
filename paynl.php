@@ -298,10 +298,10 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
             $email->body = str_replace('<br/>', "\r\n", JText::sprintf('NOTIFICATION_REFUSED_FOR_THE_ORDER', 'Paynl',
                     $custom_state)) . ' ' . JText::sprintf('ORDER_STATUS_CHANGED',
                     $custom_state) . "\r\n\r\n" . $order_text;
-            $this->modifyOrder($order_id, $custom_state, true, $email);
-
-            $this->updateTransaction($dbOrder->order_id, $order_status);
-
+            if($isExchange){
+                $this->modifyOrder($order_id, $custom_state, true, $email);
+                $this->updateTransaction($dbOrder->order_id, $order_status);
+            }
             if (!$isExchange) {
                 $this->app->enqueueMessage('Transaction Failed');
                 $this->app->redirect($cancel_url);
