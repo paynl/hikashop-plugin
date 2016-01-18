@@ -274,7 +274,8 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
                     $custom_state) . "\r\n\r\n" . $order_text;
             $history->notified = 1;
             $this->modifyOrder($order_id, $custom_state, $history, $email);
-
+			$this->updateTransaction($dbOrder->order_id, $order_status);
+			
             if ($isExchange) {
                 $message = 'TRUE| message: transaction paid, orderId:' . $dbOrder->order_id . ',  hikashop_order_status:' . $dbOrder->order_status . ', api_current_state: ' . $order_status .
                     ',  status_canceled: ' . $this->payment_params->invalid_status .
@@ -282,13 +283,12 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
                     ',  status_success: ' . $this->payment_params->verified_status;
                 die($message);
                 return true;
-            } else {
-                $this->updateTransaction($dbOrder->order_id, $order_status);
+            } else {                
                 $this->app->redirect($success_url);
                 return true;
             }
-        }// end internal status not paid and received a paid notification
-
+        } 
+		
         //internal status not paid and received a cancelled notification
         if (!$this->isPaid($dbOrder->order_id) && $order_status == 'CANCEL') {
             //change status and send email
