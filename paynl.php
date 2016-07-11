@@ -97,9 +97,11 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
             //buyer data
             $addressBT = $this->splitAddress($order->cart->billing_address->address_street . ' ' . $order->cart->billing_address->address_street2);
             $addressST = $this->splitAddress($order->cart->shipping_address->address_street . ' ' . $order->cart->shipping_address->address_street2);
+            $lang = JFactory::getLanguage();
             $enduser = array(
                 'initials' => substr($order->cart->billing_address->address_firstname, 0, 1),
                 'lastName' => $order->cart->billing_address->address_lastname,
+                'language' => substr($lang->getTag(),0,2),
                 'emailAddress' => $order->customer->email,
                 'invoiceAddress' => array(
                     'streetName' => $addressBT[0],
