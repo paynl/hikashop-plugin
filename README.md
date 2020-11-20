@@ -5,7 +5,7 @@
 
 # Description
 
-With the PAY. plugin you can easily add different payment methods to your HikaShop 3 webshop. You can go to https://www.pay.nl (Dutch) for an overview of all our features and services, you can also visit https://docs.pay.nl/plugins#hikashop for more documentation of our plugin.
+With the PAY. plugin you can easily add different payment methods to your HikaShop webshop. You can go to https://www.pay.nl (Dutch) for an overview of all our features and services, you can also visit https://docs.pay.nl/plugins#hikashop for more documentation of our plugin.
 
 - [Description](#description)
 - [Available payment methods](#available-payment-methods)
