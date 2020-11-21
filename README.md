@@ -29,7 +29,7 @@ For more information on this topic consult PAY. at support@pay.nl.
 
 1. In your admin navigate to *extension* -> *Plug-in Manager*
 2. Filter on "pay.nl" and click on the plugin
-3. On the right of the scren click on *HikaShop Options*
+3. On the right of the screen click on *HikaShop Options*
 4. Click on *System / Payment methods* and then to the right of the screen on *New*
 5. Fill in the API-token and service ID
 6. Press the save button to save it all.
@@ -42,7 +42,7 @@ For more information on this topic consult PAY. at support@pay.nl.
 
 # Usage
 
-**More information on this plugin can be found on https://docs.pay.nl/plugins#hikashop**
+More information on this plugin can be found on https://docs.pay.nl/plugins#hikashop
 
 # Support
 https://www.pay.nl
