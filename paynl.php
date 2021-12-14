@@ -3,10 +3,10 @@
 * pay.nl plugin.
 */
 
-// You need to extend from the hikashopPaymentPlugin class which already define lots of functions in order to simplify your work
+# You need to extend from the hikashopPaymentPlugin class which already define lots of functions in order to simplify your work
 class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
 {
-    //List of the plugin's accepted currencies. The plugin won't appear on the checkout if the current currency is not in that list. You can remove that attribute if you want your payment plugin to display for all the currencies
+    # List of the plugin's accepted currencies. The plugin won't appear on the checkout if the current currency is not in that list. You can remove that attribute if you want your payment plugin to display for all the currencies
     var $accepted_currencies = array(
         "AUD",
         "BGN",
@@ -44,29 +44,29 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
         "TRY",
         "USD"
     );
-    var $multiple = true; // Multiple plugin configurations. It should usually be set to true
-    var $name = 'paynl'; //Payment plugin name (the name of the PHP file)
+    var $multiple = true; # Multiple plugin configurations. It should usually be set to true
+    var $name = 'paynl'; #Payment plugin name (the name of the PHP file)
 
 
-    // The constructor is optional if you don't need to initialize some parameters of some fields of the configuration and not that it can also be done in the getPaymentDefaultValues function as you will see later on
+    # The constructor is optional if you don't need to initialize some parameters of some fields of the configuration and not that it can also be done in the getPaymentDefaultValues function as you will see later on
     function __construct(&$subject, $config)
     {
         return parent::__construct($subject, $config);
     }
 
 
-    //This function is called at the end of the checkout. That's the function which should display your payment gateway redirection form with the data from HikaShop
+    # This function is called at the end of the checkout. That's the function which should display your payment gateway redirection form with the data from HikaShop
     function onAfterOrderConfirm(&$order, &$methods, $method_id)
     {
         parent::onAfterOrderConfirm($order, $methods,
-            $method_id); // This is a mandatory line in order to initialize the attributes of the payment method
+            $method_id); # This is a mandatory line in order to initialize the attributes of the payment method
 
-        //Here we can do some checks on the options of the payment method and make sure that every required parameter is set and otherwise display an error message to the user
-        if (empty($this->payment_params->service_id)) //The plugin can only work if those parameters are configured on the website's backend
+        # Here we can do some checks on the options of the payment method and make sure that every required parameter is set and otherwise display an error message to the user
+        if (empty($this->payment_params->service_id)) # The plugin can only work if those parameters are configured on the website's backend
         {
             $this->app->enqueueMessage('You have to configure a Service ID for the Pay.nl plugin payment first : check your plugin\'s parameters, on your website backend',
                 'error');
-            //Enqueued messages will appear to the user, as Joomla's error messages
+            # Enqueued messages will appear to the user, as Joomla's error messages
             return false;
         } elseif (empty($this->payment_params->token_api)) {
             $this->app->enqueueMessage('You have to configure an api token for the Pay.nl plugin payment first : check your plugin\'s parameters, on your website backend',
@@ -94,7 +94,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
             $return_url = HIKASHOP_LIVE . 'index.php?option=com_hikashop&user=true&ctrl=checkout&task=notify&notif_payment=' . $this->name . '&order_id=' . $order->order_id . $this->url_itemid;
 
 
-            //buyer data
+            # Enduser data
             $addressBT = $this->splitAddress($order->cart->billing_address->address_street . ' ' . $order->cart->billing_address->address_street2);
             $addressST = $this->splitAddress($order->cart->shipping_address->address_street . ' ' . $order->cart->shipping_address->address_street2);
             $lang = JFactory::getLanguage();
@@ -134,7 +134,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
             $paynlService->setExtra2($order->order_number);
             $paynlService->setEnduser($enduser);
 
-            //add items
+            # Add items
 
             foreach ($order->cart->products as $product) {
                 $amount = round($product->order_product_total_price * 100);
@@ -147,7 +147,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
                         $product->order_product_quantity, $taxClass);
                 }
             }
-            //shipment
+            # Shipment
             if (!empty($order->order_shipping_price) && $order->order_shipping_price != 0) {
                 $taxClass = Pay_Helper::calculateTaxClass($order->order_shipping_price, $order->order_shipping_tax);
 
@@ -155,14 +155,14 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
                     round($order->order_shipping_price * 100), 1, $taxClass);
             }
 
-            //coupon
+            # Coupon
             if (!empty($order->order_discount_price) && $order->order_discount_price != 0) {
                 $taxClass = Pay_Helper::calculateTaxClass($order->order_discount_price, $order->order_discount_tax);
                 $paynlService->addProduct('discount', $order->order_discount_code,
                     round($order->order_discount_price * -100), 1);
             }
 
-            //payment
+            # Payment
             if (!empty($order->order_payment_price) && $order->order_payment_price != 0) {
                 $paynlService->addProduct('payment', $order->order_payment_method,
                     round($order->order_payment_price, (int)$this->currency->currency_locale['int_frac_digits']) * 100,
@@ -191,7 +191,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
     }
 
 
-    //To set the specific configuration (back end) default values (see $pluginConfig array)
+    # To set the specific configuration (back end) default values (see $pluginConfig array)
     function getPaymentDefaultValues(&$element)
     {
         $element->payment_name = 'Pay.nl';
@@ -204,10 +204,10 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
     }
 
 
-    //After submiting the plateform payment form, this is where the website will receive the response information from the payment gateway servers and then validate or not the order
+    # After submiting the plateform payment form, this is where the website will receive the response information from the payment gateway servers and then validate or not the order
     function onPaymentNotification(&$statuses)
     {
-        //We first create a filtered array from the parameters received
+        # We first create a filtered array from the parameters received
         $vars = array();
         $filter = JFilterInput::getInstance();
         foreach ($_REQUEST as $key => $value) {
@@ -251,7 +251,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
         $history->data = ob_get_clean();
 
 
-        //internal status paid so I will change anything
+        # Internal status paid so I will change anything
         if ($this->isPaid($dbOrder->order_id)) {
             $message = 'TRUE| message: transaction already paid, orderId:' . $dbOrder->order_id . ',  hikashop_order_status:' . $dbOrder->order_status . ', api_current_state: ' . $order_status .
                 ',  status_canceled: ' . $this->payment_params->invalid_status .
@@ -263,11 +263,11 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
                 $this->app->redirect($success_url);
                 return true;
             }
-        }//end internal status paid
+        }# End internal status paid
 
-        //internal status not paid and receved a paid notification
+        # Internal status not paid and receved a paid notification
         if ($order_status == 'PAID' && !$this->isPaid($order_id)) {
-            //change internal status and send notification email
+            # Change internal status and send notification email
             $email = new stdClass();
             $email->subject = JText::sprintf('PAYMENT_NOTIFICATION_FOR_ORDER', 'Paynl', $custom_state,
                 $dbOrder->order_number);
@@ -277,7 +277,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
             $history->notified = 1;
             $this->modifyOrder($order_id, $custom_state, $history, $email);
 			$this->updateTransaction($dbOrder->order_id, $order_status);
-			
+
             if ($isExchange) {
                 $message = 'TRUE| message: transaction paid, orderId:' . $dbOrder->order_id . ',  hikashop_order_status:' . $dbOrder->order_status . ', api_current_state: ' . $order_status .
                     ',  status_canceled: ' . $this->payment_params->invalid_status .
@@ -285,15 +285,14 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
                     ',  status_success: ' . $this->payment_params->verified_status;
                 die($message);
                 return true;
-            } else {                
+            } else {
                 $this->app->redirect($success_url);
                 return true;
             }
-        } 
-		
-        //internal status not paid and received a cancelled notification
+        }
+        # Internal status not paid and received a cancelled notification
         if (!$this->isPaid($dbOrder->order_id) && $order_status == 'CANCEL') {
-            //change status and send email
+            # Change status and send email
             $email = new stdClass();
             $email->subject = JText::sprintf('NOTIFICATION_REFUSED_FOR_THE_ORDER', 'Paynl', $custom_state,
                 $dbOrder->order_number);
@@ -316,8 +315,8 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
                 die($message);
             }
 
-        }//END internal status not paid and received a cancelled notification
-        //received a pending requeste and internatl not confirmed
+        }# END internal status not paid and received a cancelled notification
+        # Received a pending requeste and internatl not confirmed
         if (!$this->isPaid($dbOrder->order_id) && $order_status == 'PENDING') {
             if ($isExchange) {
                 $message = 'TRUE| message: transaction pending, orderId:' . $dbOrder->order_id . ',  hikashop_order_status:' . $dbOrder->order_status . ', api_current_state: ' . $order_status .
@@ -327,6 +326,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
                 $this->updateTransaction($dbOrder->order_id, $order_status);
                 die($message);
             } else {
+                $this->app->redirect($success_url);
                 return true;
             }
         }
@@ -341,7 +341,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
         $strStreetName = trim(array_shift($a));
         $strStreetNumber = trim(implode('', $a));
 
-        if (empty($strStreetName)) { // American address notation
+        if (empty($strStreetName)) { # American address notation
             $a = preg_split('/([a-zA-Z]{2,})/', $strAddress, 2, PREG_SPLIT_DELIM_CAPTURE);
 
             $strStreetNumber = trim(implode('', $a));
