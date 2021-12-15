@@ -45,7 +45,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
         "USD"
     );
     var $multiple = true; # Multiple plugin configurations. It should usually be set to true
-    var $name = 'paynl'; #Payment plugin name (the name of the PHP file)
+    var $name = 'paynl'; # Payment plugin name (the name of the PHP file)
 
 
     # The constructor is optional if you don't need to initialize some parameters of some fields of the configuration and not that it can also be done in the getPaymentDefaultValues function as you will see later on
@@ -204,7 +204,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
     }
 
 
-    # After submiting the plateform payment form, this is where the website will receive the response information from the payment gateway servers and then validate or not the order
+    # After submitting the platform payment form, this is where the website will receive the response information from the payment gateway servers and then validate or not the order
     function onPaymentNotification(&$statuses)
     {
         # We first create a filtered array from the parameters received
@@ -265,7 +265,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
             }
         }# End internal status paid
 
-        # Internal status not paid and receved a paid notification
+        # Internal status not paid and received a paid notification
         if ($order_status == 'PAID' && !$this->isPaid($order_id)) {
             # Change internal status and send notification email
             $email = new stdClass();
@@ -316,7 +316,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
             }
 
         }# END internal status not paid and received a cancelled notification
-        # Received a pending requeste and internatl not confirmed
+        # Received a pending request and internally not confirmed
         if (!$this->isPaid($dbOrder->order_id) && $order_status == 'PENDING') {
             if ($isExchange) {
                 $message = 'TRUE| message: transaction pending, orderId:' . $dbOrder->order_id . ',  hikashop_order_status:' . $dbOrder->order_status . ', api_current_state: ' . $order_status .
