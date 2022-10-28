@@ -213,7 +213,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
         $filter = JFilterInput::getInstance();
         foreach ($_REQUEST as $key => $value) {
             $key = $filter->clean($key);
-            $value = JRequest::getString($key);
+            $value = hikaInput::get()->getString($key);
             $vars[$key] = $value;
         }
 
