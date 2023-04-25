@@ -301,7 +301,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
                     $custom_state)) . ' ' . JText::sprintf('ORDER_STATUS_CHANGED',
                     $custom_state) . "\r\n\r\n" . $order_text;
             if($isExchange){
-                $this->modifyOrder($order_id, $custom_state, true, $email);
+                $this->modifyOrder($order_id, $custom_state, $history, $email);
                 $this->updateTransaction($dbOrder->order_id, $order_status);
             }
             if (!$isExchange) {
