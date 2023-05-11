@@ -24,7 +24,7 @@ For more information on this topic consult PAY. at support@pay.nl.
 # Installation
 #### Installing
 
-1. Download the latest .zip of the plugin on https://github.com/paynl/hikashop-plugin/releases
+1. Download the latest .zip of the plugin on https://github.com/HikaShop/payment-plugin-paynl/archive/refs/heads/master.zip
 2. Login to the admin of your webshop and navigate to the extension manager
 3. Click on install and upload the latest .zip
 
@@ -39,7 +39,7 @@ For more information on this topic consult PAY. at support@pay.nl.
 
 #### Update instructions
 
-1. Download the latest .zip of the plugin on https://github.com/paynl/hikashop-plugin/releases
+1. Download the latest .zip of the plugin on https://github.com/HikaShop/payment-plugin-paynl/archive/refs/heads/master.zip
 2. Login to the admin of your webshop and navigate to the extension manager
 3. Click on update and upload the latest .zip
 
