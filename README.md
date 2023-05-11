@@ -3,6 +3,9 @@
 </p>
 <h1 align="center">HikaShop Plugin</h1>
 
+<h1 align="left">Notice</h1>
+This module is no longer maintained. You are free to use it. However, we have stopped development and will no longer offer support.
+
 # Description
 
 With the PAY. plugin you can easily add different payment methods to your HikaShop webshop. You can go to https://www.pay.nl (Dutch) for an overview of all our features and services, you can also visit https://docs.pay.nl/plugins#hikashop for more documentation of our plugin.
