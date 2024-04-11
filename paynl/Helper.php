@@ -39,45 +39,6 @@ class Pay_Helper {
         return $newArray;
     }
 
-    /**
-     * Find out if the connection is secure
-     * 
-     * @return boolean Secure
-     */
-    public static function isSecure() {
-        $isSecure = false;
-        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on') {
-            $isSecure = true;
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' || !empty($_SERVER['HTTP_X_FORWARDED_SSL']) && $_SERVER['HTTP_X_FORWARDED_SSL'] == 'on') {
-            $isSecure = true;
-        }
-        return $isSecure;
-    }
-    public static function getUri(){        
-        if(self::isSecure()){
-            $uri='https://';
-        } else {
-            $uri='http://';
-        }
-        
-        $uri .= $_SERVER['SERVER_NAME'];
-        
-        if(!empty($_SERVER['REQUEST_URI'])){
-            $uri .= $_SERVER['REQUEST_URI'];
-            $uriDir = $uri;
-            if(substr($uri, -4) == '.php'){
-                $uriDir = dirname($uri);
-            }
-            
-            
-            if($uriDir != 'http:' && $uriDir != 'https:'){
-                $uri = $uriDir;
-            }
-        }
-        
-        return $uri.'/';
-    }
-    
     public static function sortPaymentOptions($paymentOptions){
         uasort($paymentOptions, 'sortPaymentOptions');
         return $paymentOptions;
