@@ -133,7 +133,7 @@ class plgHikashoppaymentPaynl extends hikashopPaymentPlugin
             $paynlService->setExtra1($order->order_id);
             $paynlService->setExtra2($order->order_number);
             $paynlService->setEnduser($enduser);
-            $paynlService->setObject('hikashop 3.2.7');
+            $paynlService->setObject('hikashop 3.2.8');
 
             # Add items
 

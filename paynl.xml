@@ -2,12 +2,12 @@
 <extension type="plugin" version="3.1" method="upgrade" group="hikashoppayment">
 	<name>Pay.nl Payment Plugin</name>
 	<creationDate>July 2014</creationDate>
-	<version>3.2.7</version>
+	<version>3.2.8</version>
 	<author>Pay.nl development team</author>
 	<authorEmail>support@pay.nl</authorEmail>
-	<authorUrl>http://www.pay.nl</authorUrl>
+	<authorUrl>https://www.pay.nl</authorUrl>
 	<copyright>(C) 2014 Pay.nl. All rights reserved.</copyright>
-	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<license>https://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<description>This plugin enables you to setup your Pay.nl payment system</description>
 	<files>
 		<filename plugin="paynl">paynl.php</filename>
